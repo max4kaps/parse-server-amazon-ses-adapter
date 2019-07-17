@@ -17,7 +17,7 @@ module.exports=function(options){
             to: [mail.to],
             subject: mail.subject,
             body: {
-               text: mail.text
+               html: mail.html
             }
          }, function(error, data) {
 
