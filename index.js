@@ -38,16 +38,14 @@ module.exports=function(options){
      * @returns {Promise}
      */
     var sendPasswordResetEmail = function({ link, appName, user }) {
-        //return sendMail({
-        //    templateName: 'passwordResetEmail',
-        //    link,
-        //    appName,
-        //    user
-        //});
+        const content = '<h2 style="color: lightslategray">Password Reset Email</h2>' +
+            '<div>' + user.get('email') + ', to reset your password follow this link <a href="' + link + '">'+ link +'</a></div>';
 
-        sendEmail(user.get('email'), appName + ' : Password Reset Email',
-            '<h2 style="color: lightslategray">Password Reset Email</h2>' +
-            '<div>' + user.get('email') + ', to reset your password follow this link <a href="' + link + '">'+ link +'</a></div>');
+        return sendMail({
+            subject: appName + ' : Password Reset Email',
+            html: content,
+            to: user.get('email')
+        });
     };
 
     /**
@@ -57,16 +55,15 @@ module.exports=function(options){
      * @returns {Promise}
      */
     var sendVerificationEmail = function({ link, appName, user }) {
-        //return sendMail({
-        //    templateName: 'verificationEmail',
-        //    link,
-        //    appName,
-        //    user
-        //});
+        const content = '<h2 style="color: forestgreen">Email Verification</h2>' +
+            '<div>' + user.get('email') + ', to verify your email follow this link <a href="' + link + '">'+ link +'</a></div>';
 
-        sendEmail(user.get('email'), appName + ' : Email Verification',
-            '<h2 style="color: forestgreen">Email Verification</h2>' +
-            '<div>' + user.get('email') + ', to verify your email follow this link <a href="' + link + '">'+ link +'</a></div>')
+        return sendMail({
+            subject: appName + ' : Email Verification',
+            html: content,
+            to: user.get('email')
+        });
+
     };
 
 
