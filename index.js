@@ -1,6 +1,8 @@
 var AmazonSES = require("amazon-ses-mailer");
 
 module.exports=function(options){
+    const resetPasswordTemplater = options.resetPasswordTemplater;
+    const verifyEmailTemplater = options.verifyEmailTemplater;
 
    var ses = new AmazonSES(
       options.accessKeyId,
@@ -36,15 +38,13 @@ module.exports=function(options){
      * @param {Object} options
      * @returns {Promise}
      */
-    var sendPasswordResetEmail = function({ link, appName, user }) {
+    var sendPasswordResetEmail = async function({ link, appName, user }) {
         console.log("email action sendPasswordResetEmail from " + user.get('email'));
-       
-        const content = '<h2 style="color: lightslategray">Password Reset Email</h2>' +
-            '<div>' + user.get('email') + ', to reset your password follow this link <a href="' + link + '">'+ link +'</a></div>';
 
+        const template = await resetPasswordTemplater(appName, link, user.get('email'));
         return sendMail({
-            subject: appName + ' : Password Reset Email',
-            html: content,
+            subject: template.subject,
+            html: template.content,
             to: user.get('email')
         });
     };
@@ -57,16 +57,13 @@ module.exports=function(options){
      */
     var sendVerificationEmail = function({ link, appName, user }) {
         console.log("email action sendVerificationEmail from " + user.get('email'));
-       
-        const content = '<h2 style="color: forestgreen">Email Verification</h2>' +
-            '<div>' + user.get('email') + ', to verify your email follow this link <a href="' + link + '">'+ link +'</a></div>';
 
+        const template = await verifyEmailTemplater(appName, link, user.get('email'));
         return sendMail({
-            subject: appName + ' : Email Verification',
-            html: content,
+            subject: template.subject,
+            html: template.content,
             to: user.get('email')
         });
-
     };
 
 
