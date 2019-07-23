@@ -9,9 +9,8 @@ module.exports=function(options){
    );
 
    var sendMail=function(mail){
-
       return new Promise(function(resolve, reject){
-
+         console.log("we try to send email['" + mail.subject + "'] to " + mail.to);
          ses.send({
             from: options.from,
             to: [mail.to],
@@ -38,6 +37,8 @@ module.exports=function(options){
      * @returns {Promise}
      */
     var sendPasswordResetEmail = function({ link, appName, user }) {
+        console.log("email action sendPasswordResetEmail from " + mail.to);
+       
         const content = '<h2 style="color: lightslategray">Password Reset Email</h2>' +
             '<div>' + user.get('email') + ', to reset your password follow this link <a href="' + link + '">'+ link +'</a></div>';
 
@@ -55,6 +56,8 @@ module.exports=function(options){
      * @returns {Promise}
      */
     var sendVerificationEmail = function({ link, appName, user }) {
+        console.log("email action sendVerificationEmail from " + mail.to);
+       
         const content = '<h2 style="color: forestgreen">Email Verification</h2>' +
             '<div>' + user.get('email') + ', to verify your email follow this link <a href="' + link + '">'+ link +'</a></div>';
 
