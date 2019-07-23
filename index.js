@@ -55,7 +55,7 @@ module.exports=function(options){
      * @param {Object} options
      * @returns {Promise}
      */
-    var sendVerificationEmail = function({ link, appName, user }) {
+    var sendVerificationEmail = async function({ link, appName, user }) {
         console.log("email action sendVerificationEmail from " + user.get('email'));
 
         const template = await verifyEmailTemplater(appName, link, user.get('email'));
