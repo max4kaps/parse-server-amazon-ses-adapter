@@ -37,7 +37,7 @@ module.exports=function(options){
      * @returns {Promise}
      */
     var sendPasswordResetEmail = function({ link, appName, user }) {
-        console.log("email action sendPasswordResetEmail from " + mail.to);
+        console.log("email action sendPasswordResetEmail from " + user.get('email'));
        
         const content = '<h2 style="color: lightslategray">Password Reset Email</h2>' +
             '<div>' + user.get('email') + ', to reset your password follow this link <a href="' + link + '">'+ link +'</a></div>';
@@ -56,7 +56,7 @@ module.exports=function(options){
      * @returns {Promise}
      */
     var sendVerificationEmail = function({ link, appName, user }) {
-        console.log("email action sendVerificationEmail from " + mail.to);
+        console.log("email action sendVerificationEmail from " + user.get('email'));
        
         const content = '<h2 style="color: forestgreen">Email Verification</h2>' +
             '<div>' + user.get('email') + ', to verify your email follow this link <a href="' + link + '">'+ link +'</a></div>';
